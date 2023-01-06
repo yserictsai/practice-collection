@@ -1,0 +1,38 @@
+Ruby environment build
+
+
+brew install rbenv ruby-build
+
+echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+
+source ~/.bash_profile
+
+rbenv install 2.2.3
+rbenv global 2.2.3
+ruby -v
+
+gem install rails -v 4.2.3
+rbenv rehash
+rails -v
+
+
+Create new case under a specific working directory
+
+rails new test_app
+cd test
+
+rails server
+
+==> get URL  http://localhost:3000
+
+
+quit ruby server ctrl+c
+
+
+brew install git
+
+vim .bash_profile
+export GIT_HOME='/usr/local/Cellar/git/2.6.3/bin'
+
+PATH=$GIT_HOME:$PATH
+source ~/.bash_profile

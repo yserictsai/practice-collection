@@ -1,0 +1,33 @@
+
+$ docker pull gcr.io/tensorflow/tensorflow:latest-gpu
+$ docker pull ubuntu
+
+#看映像檔
+$ docker images
+
+$ docker history gcr.io/tensorflow/tensorflow:latest-gpu
+
+$ docker search --automated -s 3 nginx
+
+$ docker rmi gcr.io/tensorflow/tensorflow:latest-gpu
+
+
+#看容器
+$ docker ps -a
+
+$ docker rm container_ID
+
+$ docker run -it ubuntu:14.04 /bin/bash
+
+
+
+$ docker commit -m "add a new file"
+$ docker import xxfile.tar.gz ubuntu:14.04
+
+
+
+# 匯出  
+$ docker save -o xxx.tar ubuntu:14.04
+
+$ docker load --input xxx.tar
+$ docker push 

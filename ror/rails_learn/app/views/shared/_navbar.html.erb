@@ -1,0 +1,17 @@
+<!-- <ul>
+  <li><a href="<%= root_path %>">home page</a></li>
+  <li><a href="<%= about_path %>">about</a></li>
+  <li><a href="<%= math_path %>">math</a></li>
+</ul> -->
+
+<!-- 正規rails 寫法 -->
+
+<ul>
+  <%= nav_li 'home page', root_path %>
+  <li><%= link_to 'about', about_path %></li>
+  <li><%= link_to 'math', math_path %></li>
+</ul>
+
+<% line_number.times do %>
+<hr>
+<% end %>

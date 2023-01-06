@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @page_title || "Event application" %></title>  <!-- || or -->
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+
+    <%= content_for :sidebar do %>
+       <ul>
+           <li>foo</li>
+           <li>bar</li>
+       </ul>
+    <% end %>
+
+  <p style="color: green"><%= flash[:notice] %></p>
+  <p style="color: red"><%= flash[:alert] %></p>
+
+  <div id="sidebar">
+      <%= yield :sidebar %>
+  </div>
+  <div id="content">
+      <%= yield %>
+  </div>
+
+
+
+</body>
+</html>

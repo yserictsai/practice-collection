@@ -1,0 +1,557 @@
+##install
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+$ brew install rbenv ruby-build
+
+$ echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+
+$ source ~/.bash_profile
+
+$ rbenv install 2.2.3
+
+$ rbenv global 2.2.3
+
+$ ruby -v
+
+$ git config --global color.ui true
+
+$ git config --global user.name "yserictsai"
+
+$ git config --global user.email "yserictsai@gmail.com"
+
+$ git config user.name
+
+$ ssh-keygen -t rsa -C "yserictsai@gmail.com"
+
+$ ssh -T git@github.com
+
+Warning: Permanently added the RSA host key for IP address '192.30.252.128' to the list of known hosts.
+Hi yserictsai! You've successfully authenticated, but GitHub does not provide shell access.
+
+$ gem install rails -v 4.2.4
+
+$ rbenv rehash
+
+$ rails -v
+
+##install MySQL
+
+$ brew install mysql
+
+## To have launchd start mysql at login:
+$ ln -sfv /usr/local/opt/mysql/*plist ~/Library/LaunchAgents
+
+## Then to load mysql now:
+$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+
+$ brew install postgresql
+
+# To have launchd start postgresql at login:
+$ ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
+
+# Then to load postgresql now:
+$ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
+# If you setup MySQL or Postgres with a username/password, modify the
+# config/database.yml file to contain the username/password that you specified
+
+# Create the database
+rake db:create
+
+# GEM
+$ gem install gem_name --no-ri --no-rdoc
+$ gem -v 告訴你 RubyGems 的版本
+$ gem update --system 升級RubyGems的版本
+$ gem install gem_name 安裝某個套件
+$ gem list 列出安裝的套件
+$ gem update gem_name 更新最新版本
+$ gem update 更新所有你安裝的Gems
+$ gem install -v x.x.x gemname 安裝特定版本
+$ gem uninstall gem_name 反安裝
+
+rails server
+$ rails new demo --skip-test-unit
+$ rails new genecho
+
+$ cd genecho
+
+
+
+# 建立Controller 與 Viewer的關係
+$ rails generate controller welcome
+
+	create  app/controllers/welcome_controller.rb
+	invoke  erb
+	create    app/views/welcome
+	invoke  helper
+	create    app/helpers/welcome_helper.rb
+	invoke  assets
+	invoke    coffee
+	create      app/assets/javascripts/welcome.coffee
+	invoke    scss
+	create      app/assets/stylesheets/welcome.scss
+
+
+1. 設定路由
+“ get ‘URL’ => “controller#action”
+
+$ get "welcome/say" => "welcome#say"   /  get "welcome" => "welcome#say"
+
+2. 設定controller(welcome_controller.rb)
+class WelcomeController < ApplicationController
+  #GET welcome, action
+  def say
+  end
+end
+
+3. 建立views/controllername/action.html.erb
+
+views/welcome/say.html.erb, edit
+<h1>Hello, World!</h1>
+<p><%= link_to 'Back to Homepage', root_path %></p>
+
+4. 連結頁面
+
+設定路由 設定首頁
+$ get "welcome/index" => "welcome#index"
+
+$ root 'welcome#index'
+
+5.設定controller(welcome_controller.rb)
+class WelcomeController < ApplicationController
+  #GET welcome,
+  def say
+  end
+
+  #GET root,
+  def index
+  end
+end
+
+6. 建立首頁 連結到哪個頁面 views的folder底下的頁面路徑  welcome/say.html.erb => welcome_say_path
+
+edit, views/welcome/index.html.erb
+
+<p>Hi! Here is Home page, It's <%= Time.now %></p>
+<p><%= link_to ‘welcome to the jungle’, welcome_say_path %></p> /or/ <p><%= link_to ‘welcome to the jungle’, welcome_path %></p>
+
+
+7.  建立資料庫
+
+$ rake db:create   會產生一個sqlite3檔
+
+$ rake -T 所有指令
+
+# 建立一組MVC架構的專案
+
+$ rails g scaffold Person firstname lastname email
+
+$ rails g scaffold person name:string bio:text birthday:date
+db/migrate/20141021135430_create_people.rb	用來建立people資料庫資料表的Migration(你的檔案開頭名稱會有不同的時間)
+app/models/person.rb	                      person model檔案
+app/controllers/people_controller.rb	      people controller檔案
+app/views/people/index.html.erb	            用來顯示所有文章的index頁面
+app/views/people/edit.html.erb	            用來編輯文章的頁面
+app/views/people/show.html.erb	            用來顯示特定一篇文章的頁面
+app/views/people/new.html.erb	              用來新增文章的頁面
+app/views/people/_form.html.erb	            用來顯示編輯和新增文章的表單局部(Partial)樣板
+app/helpers/people_helper.rb	              可在文章Views中使用的Helper方法
+config/routes.rb	                          設定URL路由規則的檔案，scaffold再此新增了一行resources :people
+app/assets/stylesheets/scaffold.scss	      Scaffold鷹架提供的樣式檔案
+app/assets/stylesheets/people.scss	        people的CSS樣式檔案
+app/assets/javascripts/people.coffee	      people的JavaScript檔案
+
+
+1. 建立models
+
+$ rails g model event name:string description:text is_public:boolean capacity:integer
+$ rake db:migrate
+
+2. 新增資料欄位
+
+$ rails g migration add_status_to_events
+
+3. 資料驗證, 編輯app/models/event.rb
+class Event < ActiveRecord::Base
+  validates_presence_of :name   # 儲存的內容必須要有name
+end
+
+
+4. 建立controller, 並定義CRUD的方法
+$ rails g controller events
+
+def index
+	@events = Event.all
+end
+
+def new
+	@event = Event.new
+end
+
+def show
+	@event = Event.find(params[:id])
+end
+
+def edit
+	@event = Event.find(params[:id])
+end
+
+def update
+	@event = Event.find(params[:id])
+	@event.update(event_params)
+
+	redirect_to :action => :show, :id => @event
+end
+
+def destroy
+	@event = Event.find(params[:id])
+	@event.destroy
+
+	redirect_to :action => :index
+end
+
+def create
+	@event = Event.new(event_params)
+	@event.save
+
+	redirect_to :action => :index
+end
+
+private
+
+def event_params
+	params.require(:event).permit(:name, :description)
+end
+
+5. 建立各個頁面 index.html.erb, show.html.erb, new.html.erb, edit.html.erb
+
+
+6. Rails的程式風格非常注重變數命名的單數複數，像上述的index Action中是用@events複數命名，代表這是一個群集陣列。其他則是用@event單數命名。
+
+7. Layout可以用來包裹樣板，讓不同樣板共用相同的HTML開頭和結尾部分。
+   當Rails要顯示一個樣板給瀏覽器時，它會將樣板的HTML放到Layout的HTML之中。
+	 預設的Layout檔案是app/views/layouts/application.html.erb，其中yield就是會被替換成樣板的地方。
+	 所有的樣版預設都會套這個Layout。
+
+8. 透過before_action，我們可以將Controller中重複的程式獨立出來。
+
+9. flash 訊息
+
+edit, app/views/layouts/application.html.erb
+
+<p style="color: green"><%= flash[:notice] %></p>
+<p style="color: red"><%= flash[:alert] %></p>
+
+並編輯controller 的各個方法
+def update
+	#@event = Event.find(params[:id])
+	if @event.update(event_params)
+		redirect_to :action => :show, :id => @event
+	else
+		render :action => :edit
+	end
+	flash[:notice] = "Successfully updated"
+end
+
+
+10. 而除錯Controller和Views一個簡單的方法是你可以使用debug這個Helper方法，例如在app/views/events/show.html.erb中插入：
+
+<%= debug(@event) %>
+
+
+
+
+
+
+
+
+----------------------------------
+$ rake db:migrate
+
+#設定首頁  /config/routes.rb
+
+root to: "index"
+
+$ rm app/asset/stylesheets/scaffolds.css.scss
+
+$ gem install bootstrap-sass
+
+or
+
+##edit Gemfile, add:
+
+$ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+
+$bundle install
+
+
+
+##mv the name of stylesheets
+
+mv app/assets/stylesheets/application.css app/assets/stylesheets/application.scss, and then, edit stylesheets, add:
+
+@import "bootstrap";
+@import "bootstrap-sprockets";
+
+##use javascript, edit app/assets/javascripts/application.js, add:
+
+//= require bootstrap
+
+//= require jquery
+//= require jquery_ujs
+//= require turbolinks
+//= require bootstrap-sprockets
+//= require_tree .
+
+
+##如果是要共用的頁面像是nar bar 等控制列, 可以手動建立一個app/views/shared之後在分享目錄下建立erb file, 之後要取用的任何erb頁面都可以用
+
+ex. app/views/shared/_navbar.html.erb  在裡面建立bootstrap 模板, 去http://getbootstrap.com/抓, ex. http://getbootstrap.com/components/#navbar
+
+<nav class="navbar navbar-default">
+
+    ...
+    ...
+
+</nav>
+
+之後要使用這個nav bar的頁面, 假設是index.html.erb, 只要在<body>加入 <% render partial: "shared/navbar" %>
+
+<body>
+    <% render partial: "shared/navbar" %>
+</body>
+
+
+##Scaffolding
+generate code to view delete and update resources
+直接建立
+
+
+##Migration
+Modify database: create table, change columns.
+roll back!
+Database schema
+
+
+
+##Active record
+interact with database
+CRUD
+
+
+
+##Scaffolding
+code-generator for entities,
+simple prototype,
+
+$ rails new fancy_cars
+
+$ cd fancy_cars
+
+(會建立cars table 欄位包含make, color, year)
+$ rails g scaffold car make color year:integer
+
+
+invoke  active_record
+      create    db/migrate/20160317035100_create_cars.rb
+      create    app/models/car.rb
+      invoke    test_unit
+      create      test/models/car_test.rb
+      create      test/fixtures/cars.yml
+      invoke  resource_route
+       route    resources :cars
+      invoke  scaffold_controller
+      create    app/controllers/cars_controller.rb
+      invoke    erb
+      create      app/views/cars
+      create      app/views/cars/index.html.erb
+      create      app/views/cars/edit.html.erb
+      create      app/views/cars/show.html.erb
+      create      app/views/cars/new.html.erb
+      create      app/views/cars/_form.html.erb
+      invoke    test_unit
+      create      test/controllers/cars_controller_test.rb
+      invoke    helper
+      create      app/helpers/cars_helper.rb
+      invoke      test_unit
+      invoke    jbuilder
+      create      app/views/cars/index.json.jbuilder
+      create      app/views/cars/show.json.jbuilder
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/cars.coffee
+      invoke    scss
+      create      app/assets/stylesheets/cars.scss
+      invoke  scss
+      create    app/assets/stylesheets/scaffolds.scss
+It creates Migration, Model, Routes, Controller with actions, Views...
+
+
+
+##(resource entity:car, column name: make color year,  default type is string), (entity會自動加s ====> cars)
+
+
+
+##Applying Scaffolding to DB
+$ rake db:migrate
+
+
+
+##
+$ rails s
+
+http://localhost:3000/cars  即可以編輯list.
+
+http://localhost:3000/cars.json  可以看到json格式, 也可以編輯
+
+
+
+##DB
+configuration: /config/database.yml
+
+Database file: /db/migrate/development.sqlite3
+
+==> Database console
+$ rails db
+
+ex. 看有什麼table
+> .table
+
+ex. 有header
+> .headers on
+
+ex. 讓之後select排列好看
+> .mode columns
+
+ex. 查詢所有cars table's column
+> select * from cars;
+
+ex. 結束
+>.exit
+
+
+
+##Migrations:
+It's just a Ruby class that get translated into DB speak
+
+Ruby classes
+ActiveRecord::Migration
+method:
+
+def up
+    Generate db schema changes
+end
+def down
+    Undo the changes introduced by the up method
+end
+
+/db/migrate/20160317060629_create_cars.rb
+
+
+
+##要scaffold不產生migration, --no-migration
+
+
+
+##No two migrations can have the same class name
+
+
+
+
+##會根據/db/migrate底下的檔案執行最新的rb
+$ rake db:migrate (update):
+
+
+
+##Column Options
+null: true  or false
+
+limit: size
+
+default: value
+
+Decimal: 十進位
+
+precision: value
+
+scale: value
+
+
+
+##回覆上一步, 不能回復（ex. 之前建立一個表格, 會被刪除）
+$ rake db:rollback
+
+
+
+##table name in Rails are always named plural
+
+
+
+##timestamps method:
+created_at
+updated_at
+
+
+
+##
+create_table
+drop_table
+
+
+
+##after migrate, 可以看table schema
+>.schema cars
+
+
+
+##Adding / Removing Column
+add_column :table_name, :column_name, :column_type
+
+remove_column :table_name, columna_name
+
+
+ex. add price column to cars table
+
+$ rails g migration add_price_to_cars 'price: decimal{10,2}'
+==>會自動建立 20160317064235_add_price_to_cars.rb
+
+$ rake db:migrate
+
+
+
+##紀錄資料庫的表格欄位
+/db/schema.rb
+
+ActiveRecord::Schema.define(version: 20160307131743) do
+
+  create_table "cars", force: :cascade do |t|
+    t.string   "make"
+    t.string   "color"
+    t.integer  "year"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.decimal  "price",      precision: 10, scale: 2
+  end
+
+end
+
+
+
+
+##Rename columns 將cars table的make column 改成 company
+
+$ rails g migration rename_make_to_company
+
+自動產生/db/migrate/20160317072244_rename_make_to_company.rb
+必須手動在此檔案加入修改內容
+def change
+    rename_column :cars, :make, :company
+end
+
+$ rake db:migrate
+
+
+
+##load schema.rb create db
+
+$ rake db:schema:load

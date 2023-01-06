@@ -1,0 +1,5 @@
+heroku login
+heroku create erictsai-learn-ror
+
+git remote -v
+git push heroku master

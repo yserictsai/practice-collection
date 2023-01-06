@@ -1,0 +1,55 @@
+<!-- <p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Featimage:</strong>
+  <%= @product.featImage %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @product.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @product.price %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %> -->
+
+
+
+
+<div class="page-header">
+	<ul class="list-inline pull-right">
+		<li><%= link_to 'Edit', edit_product_path(@product), :class => "btn btn-warning" %></li>
+		<li><%= link_to 'Back', products_path, :class => "btn btn-default" %></li>
+	</ul>
+	<h3><%= @product.name %></h3>
+</div>
+
+
+<table class="table table-striped">
+	<tr>
+		<td>Name</td>
+		<td><%= @product.name %></td>
+	</tr>
+	<tr>
+		<td>Image</td>
+		<td><img class="img-responsive" src="<%= asset_path @product.featImage %>" %></td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td><%= @product.description %></td>
+	</tr>
+	<tr class="success">
+		<td>Price</td>
+		<td><%= @product.price %></td>
+	</tr>
+</table>

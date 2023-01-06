@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RailsWithBootstrap</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+	<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+
+<!-- Optional theme -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
+
+</head>
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsibleMenu">
+					<span class=icon-bar></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="#" class="navbar-brand">OnlineShopping</a>
+			</div>
+			<div class="collapse navbar-collapse" id="collapsibleMenu">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" data-target="#shoppingCart" data-toggle="modal"><span class="glyphicons glyphicon-shopping-cart"></span></a></li>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Contact</a></li>
+					<li><a href="#">Support</a></li>
+				</ul>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Create a Project</h4>
+				</div>
+				<div class="modal-body">
+					<form class="">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Project Name">
+						</div>
+						<div class="form-group">
+							<input type="textarea" class="form-control" placeholder="Project Description">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<!-- <button class="btn btn-success" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i>Create</button> -->
+					<a href="#" class="btn btn-primary">Create</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="shoppingCart">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title text-primary">Your Cart</h4>
+					<p class="pull-right text-primary"><b>4 items</b></p>
+				</div>
+				<div class="modal-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>S1 no</th>
+							<th>Item Name</th>
+							<th>Unit Price (USD)</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th></th>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<!-- <button class="btn btn-success" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i>Create</button> -->
+					<a href="#" class="btn btn-primary">Create</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<div class="container bodyContent">
+  <%= yield %>
+</div>
+
+
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script> -->
+
+
+</body>
+</html>

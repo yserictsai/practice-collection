@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RailsLearn</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+<%= render 'shared/navbar', line_number: 3 %>
+<%= render "albums/album", title: '生活', summary: '日常', image: '...' %>
+<%= yield %>
+
+<%= tag :hr %>
+<%= content_tag :span, "Text", class: :item %>
+<%= link_to "關於我們", about_path, target: :_blank %>
+
+<%= javascript_include_tag 'main' %>
+<script src="/assets/main.js"></script>
+<script src="/javascripts/main.js"></script>
+
+
+<%= stylesheet_link_tag 'style' %>
+<link rel="stylesheet" href="/assets/style.css" media="screen">
+<link rel="stylesheet" href="/stylesheets/style.css" media="screen">
+
+<%= image_tag 'user.png', width: 100 %>
+<img src="/assets/user.png" alt="User" width="100"/>
+<img src="/images/user.png" alt="User" width="100"/>
+
+</body>
+</html>

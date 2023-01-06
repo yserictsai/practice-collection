@@ -1,0 +1,75 @@
+<div class="page-header">
+	<%= link_to 'New Product', new_product_path, :class => "btn btn-success pull-right" %>
+	<h3>All Products</h3>
+</div>
+
+<div class="row">
+  <% @products.each do |product| %>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		<h2><%= product.name %></h2>
+		<img class="img-responsive" src="<%= asset_path product.featImage%>" />
+    <p><%= product.description %></p>
+		<h4><%= product.price %></h4>
+		<%= link_to 'Show', product, :class => "btn btn-primary" %>
+		<%= link_to 'Buy', "#", :class => "btn btn-success", :data => { :toggle => 'modal', :target => '#myModal'} %>
+	</div>
+	<% end %>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+	<table class="table table-hover ">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Featimage</th>
+	      <th>Description</th>
+	      <th>Price</th>
+	      <th colspan="3"></th>
+	    </tr>
+	  </thead>
+
+	  <tbody>
+	    <% @products.each do |product| %>
+	      <tr>
+	        <td><%= product.name %></td>
+	        <td><%= product.featImage %></td>
+	        <td><%= product.description %></td>
+	        <td><%= product.price %></td>
+	        <td><%= link_to 'Show', product %></td>
+	        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+	        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
+
+<br>
+
+<div class="container">
+	<form class="form-inline" action="index.html" method="post">
+		<div class="form-group">
+			<label for="emailField">Email</label>
+			<input type="text" class="form-control" placeholder="Enter email">
+		</div>
+		<div class="form-group has-success has-feedback">
+			<label for="passwordField" class="control-label">Password</label>
+			<input type="password" class="form-control" placeholder="Enter password">
+			<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+		</div>
+		<div class="checkbox">
+			<label><input type="checkbox">Remember me</label>
+		</div>
+		<button type="submit" class="btn btn-success">Sign in</button>
+	</form>
+</div> -->

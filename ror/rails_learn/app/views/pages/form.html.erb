@@ -1,0 +1,24 @@
+
+<!-- 變數會儲存在authenticity_token中
+<input type="hidden" name="authenticity_token" value="XXXXXXXXX"> -->
+
+<!-- <form class="" action="/about" method="post">
+	<input type="text" name="name">
+	<%= token_tag %>
+	<input type="submit">
+</form> -->
+
+
+
+<!-- 另外一種寫法-->
+<!-- <%= form_tag about_path, method: :post, class: "" do %>
+	<input type="text" name="name">
+	<input type="submit">
+<% end %> -->
+
+
+<!-- 另外一種寫法更rails-->
+<%= form_tag about_path, method: :post, class: "" do %>
+	<%= text_field_tag :name %>
+	<%= submit_tag %>
+<% end %>

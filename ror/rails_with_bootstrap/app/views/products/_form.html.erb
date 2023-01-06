@@ -1,0 +1,34 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, :for => "nameField" %>
+    <%= f.text_field :name, :class => "form-control", :id => "nameField" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :featImage, :for => "imgField" %>
+    <%= f.text_field :featImage, :class => "form-control", :id => "imgField" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, :for => "descField" %>
+    <%= f.text_area :description, :class => "form-control", :id => "descField" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :price, :for => "priceField" %>
+    <%= f.text_field :price, :class => "form-control", :id => "priceField" %>
+  </div>
+	<ul class="list-inline">
+		<li><%= f.submit 'Create', :class => "btn btn-success"%></li>
+		<li><%= button_tag "Reset", type: :reset, :class => "btn btn-default"  %></li>
+	</ul>
+<% end %>

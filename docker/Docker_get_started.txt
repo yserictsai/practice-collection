@@ -1,0 +1,121 @@
+-----映像檔-----
+
+
+docker info
+
+docker ps
+
+docker run hello-world
+
+docker run -d -p 80:80 --name webserver nginx
+docker ps
+
+docker stop webserver
+docker start webserver
+
+
+# 列出本機所有映像檔
+docker images
+
+
+
+Docker 在執行容器前需要本地端存在對應的映像檔，如果映像檔不存在本地端，Docker 會從映像檔倉庫下載（預設是 Docker Hub 公共註冊伺服器中的倉庫）。
+
+
+ex.
+
+取得映像檔
+
+docker pull ubuntu:12.04
+docker run -t -i ubuntu:12.04 /bin/bash
+
+exit
+
+
+建立資料夾與Dockerfile:
+
+FROM ubuntu:14.04
+MAINTAINER Docker Newbee <newbee@docker.com>
+RUN apt-get -qq update
+RUN apt-get -qqy install ruby ruby-dev
+RUN gem install sinatra
+ADD myApp /var/www #put my local web site in myApp folder to /var/www
+EXPOSE 80 #expose httpd port
+CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"] #the command to run
+
+
+Dockerfile 基本的語法是
+使用#來註釋
+FROM 指令告訴 Docker 使用哪個映像檔作為基底，接著是維護者的信息
+RUN開頭的指令會在建立中執行，比如安裝一個套件，在這裏使用 apt-get 來安裝了一些套件
+還可以利用 ADD 命令複製本地檔案到映像檔；用 EXPOSE 命令向外部開放埠號；用 CMD 命令描述容器啟動後執行的程序等。
+
+
+docker build -t="ouruser/sinatra:v2" .
+
+其中 -t 標記添加 tag，指定新的映像檔的使用者信息。 “.” 是 Dockerfile 所在的路徑（當前目錄），也可以換成具體的 Dockerfile 的路徑。
+
+docker run -t -i ouruser/sinatra:v2 /bin/bash
+docker tag 5db5f8471261 ouruser/sinatra:devel  #docker tag 命令修改映像檔的標籤
+docker push
+docker save
+docker load
+
+如果要移除本地端的映像檔，可以使用 docker rmi 命令。注意 docker rm 命令是移除容器
+
+
+-----容器-----
+
+docker run ubuntu:14.04 /bin/echo 'Hello world'
+
+
+docker run -t -i ubuntu:14.04 /bin/bash
+
+docker stop
+
+docker ps -a
+
+docker start
+
+
+docker restart
+
+-t 選項讓Docker分配一個虛擬終端（pseudo-tty）並綁定到容器的標準輸入上， -i 則讓容器的標準輸入保持打開。
+
+
+建立bashrc for docker
+$ wget -P ~ https://github.com/yeasy/docker_practice/raw/master/_local/.bashrc_docker;
+$ echo "[ -f ~/.bashrc_docker ] && . ~/.bashrc_docker" >> ~/.bashrc; source ~/.bashrc
+
+
+
+
+
+-----Docker hub-----
+docker login
+docker search keyword
+docker pull
+
+
+
+
+
+
+
+
+
+-----Docker -----
+
+docker run -v /home/ystsai:/home/ystsai -w /home/ystsai -i -t local/rna-seq
+
+docker run -it --name eric-rna -v /home/ystsai/rna-seq:/app/rna-seq local/rna-seq bash
+
+
+ docker cp /path/to/host <container_id>:/foo/
+
+
+
+docker start eric-rna
+docker attach eric-rna
+docker exec -it eric-rna bash
+docker ps -a

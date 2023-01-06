@@ -1,0 +1,14 @@
+Bundler
+bundler.io
+
+
+manager gems
+
+
+bundle install
+bundle update
+
+
+gem 'sqlite3-ruby'
+require 'sqlite'
+

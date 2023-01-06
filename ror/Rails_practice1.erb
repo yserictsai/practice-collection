@@ -1,0 +1,95 @@
+rails g controller controller_names(任意命名) [action1 action2(ruby method)]
+
+rails g controller greeter hello
+
+http://localhost:3000/greeter/hello
+
+erb file.
+ruby code tag
+
+1. evaluate ruby
+
+<% ...RUBY CODE...%>
+
+2. output evaluated ruby code
+
+<%= ...Ruby CODE...%>
+
+
+<h1>Greeter, <%= @name %></h1>
+<p>the time is now <%= @time %></p>
+<p>this has been viewed <%= @time_displayed %> time(s)</p>
+<p>Find me in app/views/greeter/hello.html.erb</p>
+
+Controller action
+
+1. config/routes.rb 修改內容才抓得到actions
+
+get 'action'
+
+2. app/controller/xxx_controller.rb 新增def action
+
+def action
+end
+
+3. app/views/xxaction.html.erb 寫code呈現 html
+
+
+# 亦可以在controller中設定變數後
+# 使得 views的erb檔可以取用controller中的實體變數
+
+controller.rb
+
+class GreeterController < ApplicationController
+  def hello
+    random_name = ['amy', 'melody', 'eric']
+    @name = random_name.sample
+    @time = Time.now
+    @time_displayed ||= 0
+    @time_displayed += 1
+  end
+end
+
+這裡不能儲存實體變數 between request 所以+=1 沒有用
+要儲存的話要用session(HTP)或者database
+
+
+
+
+view/xx.erb
+<h1>Greeter, <%= @name %></h1>
+<p>the time is now <%= @time %></p>
+<p>this has been viewed <%= @time_displayed %> time(s)</p>
+<p>Find me in app/views/greeter/hello.html.erb</p>
+
+
+rake --task
+
+rake --describe task_name
+
+
+#######
+helper/xxcontrol_helper.rb
+
+available in ALL views
+
+######
+
+hyper link generator
+
+link_to name, path
+link_to "Google", "http://www.google.com.tw"
+link_to "Goodbye", greeter_action_path
+
+path 可以是一般的cnn.com
+或者寫在routes.rb裡面  _url   contro_path
+
+
+
+#########
+
+HTTParty
+
+ruby gem
+
+it can interact with web services

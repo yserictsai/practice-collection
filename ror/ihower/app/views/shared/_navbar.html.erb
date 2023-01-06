@@ -1,0 +1,12 @@
+<ul>
+  <li><%= link_to '首頁', root_path %></li>
+  <li><a href="say_path">歡迎</a></li>
+  <li><a href="math_path">數字</a></li>
+
+
+<!-- URL helper  xxx_path 且 利用固定的prefix 可以更改路由名稱-->
+<!-- tag helper content_tag :span, "Test", class: :item or link_to '首頁', root_path -->
+  <% line.times do %>
+  <hr>
+  <% end %>
+</ul>
